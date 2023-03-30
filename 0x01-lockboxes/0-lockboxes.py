@@ -10,7 +10,7 @@ def canUnlockAll(boxes):
     n = len(boxes)
     unlocked = [i for i in range(n)]
     keys = [0]
-    while(keys):
+    while(keys and unlocked):
         curr_key = keys.pop(0)
         if curr_key < n and curr_key in unlocked:
             unlocked.remove(curr_key)
