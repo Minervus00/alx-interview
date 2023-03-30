@@ -1,5 +1,4 @@
-#!C:/Users/LENOVO/anaconda3/python.exe
-# /usr/bin/python3
+#!/usr/bin/python3
 
 canUnlockAll = __import__('0-lockboxes').canUnlockAll
 
