@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ This function checks if all box in boxes can be opened.
-    The first box is already opened. All boxes contains numbered 
+    The first box is already opened. All boxes contains numbered
     keys. Each key can unlock box with the same number (from 0 to n-1)
 """
 
