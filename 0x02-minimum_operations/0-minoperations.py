@@ -5,7 +5,7 @@ Explanations:
 Only two operations are available: 'Copy All' and 'Paste'
 Given that, at each step we have two choices to get a result:
 - (A) 'Copy All' and 'Paste' => (2 operations) and (buffer_content = content
-&& content =* 2)
+&& content *= 2)
 - (B) 'Paste' => (a single operation) and (content += buffer_content)
 
 We can then draw a binary tree for all possible events where each node is
