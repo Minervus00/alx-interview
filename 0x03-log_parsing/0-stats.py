@@ -33,6 +33,7 @@ def print_records():
 
 
 def signal_handler(signum, frame):
+    """Handles ctrl-c"""
     print_records()
     raise KeyboardInterrupt
 
