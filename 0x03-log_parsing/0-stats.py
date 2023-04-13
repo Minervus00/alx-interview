@@ -4,7 +4,7 @@ import re
 import signal
 
 
-def parse_line(line: str, file_size: int):
+def parse_line(line, file_size):
     """Records code and file size if the line has the good format"""
     pattern = r"^(([0-9]{1,3}\.){3}[0-9]{1,3}) - "
     pattern += r"\[[0-9]{4}(-[0-9]{2}){2} ([0-9]{2}:){2}[0-9]{2}\.[0-9]{6}\] "
@@ -13,10 +13,9 @@ def parse_line(line: str, file_size: int):
 
     res = re.fullmatch(pattern, line)
     if not res:
-        print("no_good")
+        # print("no_good")
         return
 
-    # print("good")
     code = res.group(5)
     size = int(res.group(6))
     # print(code)
@@ -28,9 +27,9 @@ def parse_line(line: str, file_size: int):
 
 def print_records():
     """Prints the records in the required format"""
-    print(f"File size: {file_size}")
+    print("File size: {}".format(file_size))
     for code, val in status.items():
-        print(f"{code}: {val}")
+        print("{}: {}".format(code, val))
 
 
 def signal_handler(signum, frame):
