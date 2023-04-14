@@ -1,5 +1,8 @@
 #!/usr/bin/python3
-""" Module for log parsing function """
+"""
+Module for log parsing function 
+Documentation for this stuff
+"""
 import re
 import signal
 
