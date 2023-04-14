@@ -38,25 +38,26 @@ def signal_handler(signum, frame):
     raise KeyboardInterrupt
 
 
-status = dict(
-    (val, 0) for val in [
-        '200', '301', '400', '401', '403', '404', '405', '500'
-    ]
-)
+if __name__ == 'main':
+    status = dict(
+        (val, 0) for val in [
+            '200', '301', '400', '401', '403', '404', '405', '500'
+        ]
+    )
 
-file_size = 0
+    file_size = 0
 
-signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGINT, signal_handler)
 
-itr = 0
-while True:
-    line = input()
-    # print(line)
-    res = parse_line(line, file_size)
-    if res:
-        itr += 1
-        file_size = res
+    itr = 0
+    while True:
+        line = input()
+        # print(line)
+        res = parse_line(line, file_size)
+        if res:
+            itr += 1
+            file_size = res
 
-    if itr == 10:
-        itr = 0
-        print_records()
+        if itr == 10:
+            itr = 0
+            print_records()
