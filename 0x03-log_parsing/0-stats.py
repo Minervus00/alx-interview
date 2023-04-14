@@ -38,7 +38,7 @@ def signal_handler(signum, frame):
     raise KeyboardInterrupt
 
 
-if __name__ == 'main':
+if __name__ == "__main__":
     status = dict(
         (val, 0) for val in [
             '200', '301', '400', '401', '403', '404', '405', '500'
