@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Log parsing"""
+"""log parsing"""
 import re
 import signal
 
