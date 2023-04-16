@@ -44,16 +44,21 @@ if __name__ == "__main__":
         itr = 0
         for line in sys.stdin:
             line = line.split()
-            code = line[-2]
-            if code in status:
-                status[code] += 1
-            size = int(line[-1])
-            file_size += size
+            try:
+                code = line[-2]
+                if code in status:
+                    status[code] += 1
+                size = int(line[-1])
+                file_size += size
+            except Exception as ex:
+                pass
 
             itr += 1
             if itr == 10:
                 itr = 0
                 print_records()
-        print_records()
+
     except KeyboardInterrupt as kb:
         print_records()
+        raise
+    print_records()
