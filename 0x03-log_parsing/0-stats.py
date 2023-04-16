@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """log parsing"""
 import re
-import signal
 import sys
 
 
@@ -33,12 +32,6 @@ def print_records():
         print("{}: {}".format(code, val))
 
 
-def signal_handler(signum, frame):
-    """Handles ctrl-c command"""
-    print_records()
-    # raise KeyboardInterrupt
-
-
 if __name__ == "__main__":
     status = dict(
         (val, 0) for val in [
@@ -48,20 +41,24 @@ if __name__ == "__main__":
 
     file_size = 0
 
-    signal.signal(signal.SIGINT, signal_handler)
-
     try:
         itr = 0
         for line in sys.stdin:
+            line = line.split()
+            code = line[-2]
+            size = int(line[-1])
+            status[code] += 1
+            file_size += size
             # print(line)
-            res = parse_line(line, file_size)
-            if res:
-                itr += 1
-                file_size = res
-
+            # res = parse_line(line, file_size)
+            # if res:
+            #     itr += 1
+            #     file_size = res
+            itr += 1
             if itr == 10:
                 itr = 0
                 print_records()
-        print_records()
     except KeyboardInterrupt as kb:
         print_records()
+        raise
+    print_records()

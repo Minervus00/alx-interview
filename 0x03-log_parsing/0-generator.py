@@ -5,7 +5,7 @@ import sys
 from time import sleep
 import datetime
 
-for i in range(10):
+for i in range(8):
     sleep(random.random())
     sys.stdout.write(
         "{:d}.{:d}.{:d}.{:d} - [{}] \"GET /projects/260 HTTP/1.1\" {} {}\n"
