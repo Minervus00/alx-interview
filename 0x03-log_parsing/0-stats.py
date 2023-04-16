@@ -1,43 +1,44 @@
 #!/usr/bin/python3
-"""log parsing"""
+"""
+Log parsing
+"""
 import sys
 
 
-def print_records(file_size, status):
-    """Prints the records in the required format"""
+def print_metrics(file_size, status_codes):
+    """
+    Print metrics
+    """
     print("File size: {}".format(file_size))
-    for code, val in status.items():
-        print("{}: {}".format(code, val))
+    codes_sorted = sorted(status_codes.keys())
+    for code in codes_sorted:
+        if status_codes[code] > 0:
+            print("{}: {}".format(code, status_codes[code]))
 
+
+codes_count = {'200': 0, '301': 0, '400': 0, '401': 0,
+               '403': 0, '404': 0, '405': 0, '500': 0}
+file_size_total = 0
+count = 0
 
 if __name__ == "__main__":
-    status = dict(
-        (val, 0) for val in [
-            '200', '301', '400', '401', '403', '404', '405', '500'
-        ]
-    )
-
-    file_size = 0
-
     try:
-        itr = 0
         for line in sys.stdin:
-            line = line.split()
             try:
-                code = line[-2]
-                if code in status:
-                    status[code] += 1
-                size = int(line[-1])
-                file_size += size
-            except Exception as ex:
+                status_code = line.split()[-2]
+                if status_code in codes_count.keys():
+                    codes_count[status_code] += 1
+                # Grab file size
+                file_size = int(line.split()[-1])
+                file_size_total += file_size
+            except Exception:
                 pass
-
-            itr += 1
-            if itr == 10:
-                itr = 0
-                print_records(file_size, status)
-
-    except KeyboardInterrupt as kb:
-        print_records(file_size, status)
+            # print metrics if 10 lines have been read
+            count += 1
+            if count == 10:
+                print_metrics(file_size_total, codes_count)
+                count = 0
+    except KeyboardInterrupt:
+        print_metrics(file_size_total, codes_count)
         raise
-    print_records(file_size, status)
+    print_metrics(file_size_total, codes_count)
