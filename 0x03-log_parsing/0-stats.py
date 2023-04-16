@@ -2,13 +2,14 @@
 """log parsing"""
 import re
 import signal
+import sys
 
 
 def parse_line(line, file_size):
     """Records code and file size if the line has the good format"""
     pattern = r"^(([0-9]{1,3}\.){3}[0-9]{1,3}) - "
     pattern += r"\[[0-9]{4}(-[0-9]{2}){2} ([0-9]{2}:){2}[0-9]{2}\.[0-9]{6}\] "
-    pattern += r"\"GET /projects/260 HTTP/1\.1\" ([0-5]{3}) (\d+)$"
+    pattern += r"\"GET /projects/260 HTTP/1\.1\" ([0-5]{3}) (\d+)\n$"
     # print(pattern)
 
     res = re.fullmatch(pattern, line)
@@ -49,15 +50,18 @@ if __name__ == "__main__":
 
     signal.signal(signal.SIGINT, signal_handler)
 
-    itr = 0
-    while True:
-        line = input()
-        # print(line)
-        res = parse_line(line, file_size)
-        if res:
-            itr += 1
-            file_size = res
+    try:
+        itr = 0
+        for line in sys.stdin:
+            # print(line)
+            res = parse_line(line, file_size)
+            if res:
+                itr += 1
+                file_size = res
 
-        if itr == 10:
-            itr = 0
-            print_records()
+            if itr == 10:
+                itr = 0
+                print_records()
+        print_records()
+    except KeyboardInterrupt as kb:
+        print_records()
