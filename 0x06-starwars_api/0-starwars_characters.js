@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/node
 // Prints all characters in the right order from the movie which id is given
 
 const request = require('request');
