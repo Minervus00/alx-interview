@@ -1,1 +1,1 @@
-# Web Scraping with JavaScript :magnifying_glass_right:
+# Web Scraping with JavaScript :mag_right:
